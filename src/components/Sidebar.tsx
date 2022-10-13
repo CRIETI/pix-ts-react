@@ -1,6 +1,11 @@
 import styles from "./Sidebar.module.css";
 
-export function Sidebar() {
+interface SidebarProps {
+  onFilter: () => void;
+  setUserFilter: (value: string) => void;
+}
+
+export function Sidebar({ setUserFilter, onFilter }: SidebarProps) {
   return (
     <header className={styles.sidebar}>
       <div className={styles.content}>
@@ -12,6 +17,7 @@ export function Sidebar() {
               id="id-user"
               name="id-user"
               placeholder="Digite o ID do usuário aqui..."
+              onChange={(e) => setUserFilter(e.target.value)}
             />
           </div>
           <a className={styles.active} href="#">
@@ -20,6 +26,8 @@ export function Sidebar() {
           <a href="#">Recebidos</a>
           <a href="#">Enviados</a>
         </nav>
+
+        <button onClick={() => onFilter()}></button>
       </div>
     </header>
   );

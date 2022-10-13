@@ -22,6 +22,7 @@ export interface Pix {
 
 export function PixList() {
   const [pixList, setPixList] = useState<Pix[]>([]);
+  const [userFilter, setUserFilter] = useState("");
 
   useEffect(() => {
     axios.get<Pix[]>("http://localhost:3333/pix").then((response) => {
@@ -29,10 +30,18 @@ export function PixList() {
     });
   }, []);
 
+  function filter() {
+    axios
+      .get<Pix[]>(`http://localhost:3333/pix${userFilter}/sent`)
+      .then((response) => {
+        setPixList(response.data);
+      });
+  }
+
   return (
     <div>
-      <Header showButton />
-      <Sidebar />
+      <Header />
+      <Sidebar onFilter={filter} setUserFilter={setUserFilter} />
       <main className={styles.content}>
         {pixList.map((pix) => {
           return (
