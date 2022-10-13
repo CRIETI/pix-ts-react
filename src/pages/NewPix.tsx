@@ -20,7 +20,7 @@ export function NewPix() {
     axios.get<User[]>("http://localhost:3333/users").then((response) => {
       setUsers(response.data);
     });
-  }, [users]);
+  }, []);
 
   async function handleCrateNewComment(e: FormEvent) {
     e.preventDefault();
