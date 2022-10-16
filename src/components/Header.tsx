@@ -1,15 +1,28 @@
-import { House, List, Plus } from "phosphor-react";
+import { House, List, Moon, Plus } from "phosphor-react";
+import { useEffect, useState } from "react";
 
 import logoPix from "../assets/logo-pix.svg";
+import { useCookies } from "react-cookie";
 
 import {
   ContentContainer,
+  DarkModeContainer,
   HeaderContainer,
   NavbarLink,
   NavLinkContainer,
+  Switch,
 } from "./Header.styles";
 
 export function Header() {
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["isDark"]);
+
+  useEffect(() => {
+    cookies.isDark && setIsDarkTheme(true);
+  }, []);
+
+  isDarkTheme ? setCookie("isDark", "true") : removeCookie("isDark");
+
   return (
     <HeaderContainer>
       <ContentContainer>
@@ -24,7 +37,19 @@ export function Header() {
             <Plus size={32} />
           </NavbarLink>
         </NavLinkContainer>
-        <img src={logoPix} alt="Logotipo do Pix" />
+        <div>
+          <DarkModeContainer>
+            <Moon size={30} />
+            <Switch>
+              <input
+                type="checkbox"
+                onChange={(e) => setIsDarkTheme(e.target.checked)}
+              />
+              <span className="slider"></span>
+            </Switch>
+          </DarkModeContainer>
+          <img src={logoPix} alt="Logotipo do Pix" />
+        </div>
       </ContentContainer>
     </HeaderContainer>
   );

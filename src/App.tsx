@@ -8,12 +8,15 @@ import { useState } from "react";
 import { darkTheme } from "./styles/themes/dark";
 import { defaultTheme } from "./styles/themes/default";
 import { GlobalStyle } from "./styles/global";
+import { useCookies } from "react-cookie";
 
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [cookies, setCookie] = useCookies(["isDark"]);
+
+  console.log(typeof cookies.isDark);
 
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : defaultTheme}>
+    <ThemeProvider theme={cookies.isDark ? darkTheme : defaultTheme}>
       <BrowserRouter>
         <ToastContainer />
         <Router />
