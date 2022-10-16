@@ -1,11 +1,10 @@
 import { Header } from "../components/Header";
 
-import styles from "./PixList.module.css";
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
 import { Sidebar } from "../components/Sidebar";
+import { MainContainer } from "./PixList.styles";
 
 export interface Pix {
   id: number;
@@ -30,9 +29,9 @@ export function PixList() {
     });
   }, []);
 
-  function filter() {
+  function filter(userId: number, type: string) {
     axios
-      .get<Pix[]>(`http://localhost:3333/pix${userFilter}/sent`)
+      .get<Pix[]>(`http://localhost:3333/pix/${userId}/${type}`)
       .then((response) => {
         setPixList(response.data);
       });
@@ -41,8 +40,8 @@ export function PixList() {
   return (
     <div>
       <Header />
-      <Sidebar onFilter={filter} setUserFilter={setUserFilter} />
-      <main className={styles.content}>
+      <Sidebar onFilter={filter} />
+      <MainContainer>
         {pixList.map((pix) => {
           return (
             <Card
@@ -55,7 +54,7 @@ export function PixList() {
             />
           );
         })}
-      </main>
+      </MainContainer>
     </div>
   );
 }

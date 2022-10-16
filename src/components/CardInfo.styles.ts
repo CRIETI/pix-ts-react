@@ -1,17 +1,19 @@
-.cardInfo {
+import styled, { css } from "styled-components";
+
+export const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-}
+`;
 
-.cardInfo .title {
+export const Title = styled.div`
   font-weight: 500;
   font-size: 10px;
   color: var(--gray-300);
   line-height: 22px;
   text-transform: uppercase;
-}
+`;
 
-.cardInfo .data {
+export const Data = styled.div`
   color: var(--gray-800);
-}
+`;

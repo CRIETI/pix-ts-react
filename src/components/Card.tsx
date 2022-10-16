@@ -1,8 +1,14 @@
-import { Pix } from "../App";
 import styles from "./Card.module.css";
 import { CardInfo } from "./CardInfo";
 import { format, isToday } from "date-fns";
 import ptBr from "date-fns/locale/pt-BR";
+import { Pix } from "../pages/PixList";
+import {
+  ContentContainer,
+  DivContainer,
+  NewPixContainer,
+  TypePix,
+} from "./Card.styles";
 
 export function Card({
   id,
@@ -24,13 +30,13 @@ export function Card({
   const isNewPix = isToday(new Date(createdAt));
 
   return (
-    <div className={`${styles.card} ${isNewPix && styles.new}`}>
+    <DivContainer isNew={isNewPix}>
       {isNewPix && (
-        <div className={styles.newPix}>
+        <NewPixContainer>
           <span>Novo</span>
-        </div>
+        </NewPixContainer>
       )}
-      <div className={styles.content}>
+      <ContentContainer>
         <strong>{id}</strong>
 
         <CardInfo title="REMETENTE" data={sender.name} />
@@ -38,10 +44,8 @@ export function Card({
         <CardInfo title="Data" data={formattedDate} />
         <CardInfo title="Valor" data={formattedValue} />
 
-        <strong className={type === 1 ? styles.send : styles.received}>
-          {type === 1 ? "ENVIADO" : "RECEBIDO"}
-        </strong>
-      </div>
-    </div>
+        <TypePix type={type}>{type === 1 ? "ENVIADO" : "RECEBIDO"}</TypePix>
+      </ContentContainer>
+    </DivContainer>
   );
 }

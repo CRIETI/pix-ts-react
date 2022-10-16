@@ -1,9 +1,14 @@
-import axios from "axios";
 import { useEffect, useState, FormEvent } from "react";
+
+import axios from "axios";
 import { Header } from "../components/Header";
 import { toast } from "react-toastify";
 
-import styles from "./NewPix.module.css";
+import {
+  ButtonContainer,
+  DivContainer,
+  ItemsFormContainer,
+} from "./NewPix.styles";
 
 interface User {
   id: number;
@@ -46,15 +51,12 @@ export function NewPix() {
   }
 
   return (
-    <div className={styles.newPix}>
+    <DivContainer>
       <Header />
       <form onSubmit={handleCrateNewComment}>
-        <div className={styles.itemsForm}>
-          <label htmlFor="sender" className={styles.label}>
-            REMETENTE
-          </label>
+        <ItemsFormContainer>
+          <label htmlFor="sender">REMETENTE</label>
           <select
-            className={styles.input}
             id="sender"
             value={senderId}
             onChange={(e) => setSenderId(e.target.value)}
@@ -70,14 +72,11 @@ export function NewPix() {
               );
             })}
           </select>
-        </div>
+        </ItemsFormContainer>
 
-        <div className={styles.itemsForm}>
-          <label htmlFor="recipient" className={styles.label}>
-            DESTINATÁRIO
-          </label>
+        <ItemsFormContainer>
+          <label htmlFor="recipient">DESTINATÁRIO</label>
           <select
-            className={styles.input}
             id="recipient"
             value={recipientId}
             onChange={(e) => setRecipientId(e.target.value)}
@@ -93,19 +92,19 @@ export function NewPix() {
               );
             })}
           </select>
-        </div>
+        </ItemsFormContainer>
 
-        <div className={styles.itemsForm}>
+        <ItemsFormContainer>
           <label htmlFor="value">VALOR</label>
           <input
             value={value}
             onChange={(e) => setValue(e.target.value)}
             type="number"
           />
-        </div>
+        </ItemsFormContainer>
 
-        <button type="submit">Enviar</button>
+        <ButtonContainer type="submit">Enviar</ButtonContainer>
       </form>
-    </div>
+    </DivContainer>
   );
 }
