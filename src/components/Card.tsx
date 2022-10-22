@@ -6,28 +6,43 @@ import { Pix } from "../pages/PixList";
 import {
   ContentContainer,
   DivContainer,
+  EditPix,
   NewPixContainer,
   TypePix,
 } from "./Card.styles";
+import { Pencil } from "phosphor-react";
+import { ModalPix } from "./modais/ModalPix";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
-export function Card({
-  id,
-  value,
-  createdAt,
-  recipient,
-  sender,
-  type = 1,
-}: Pix) {
-  const formattedDate = format(new Date(createdAt), "dd MMM", {
+interface CardProps {
+  data: Pix;
+}
+
+export function Card({ data }: CardProps) {
+  const [closeModal, setCloseModal] = useState(false);
+
+  const MySwal = withReactContent(Swal);
+
+  const formattedDate = format(new Date(data.createdAt), "dd MMM", {
     locale: ptBr,
   });
 
-  const formattedValue = value.toLocaleString("pt-br", {
+  const formattedValue = data.value.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
   });
 
-  const isNewPix = isToday(new Date(createdAt));
+  const isNewPix = isToday(new Date(data.createdAt));
+
+  const showSwal = () => {
+    MySwal.fire({
+      title: <strong>Editar pix</strong>,
+      html: <ModalPix closeModal={MySwal.close} data={data} />,
+      showConfirmButton: false,
+    }).then(() => setCloseModal(true));
+  };
 
   return (
     <DivContainer isNew={isNewPix}>
@@ -37,14 +52,16 @@ export function Card({
         </NewPixContainer>
       )}
       <ContentContainer>
-        <strong>{id}</strong>
+        <strong>{data.id}</strong>
 
-        <CardInfo title="REMETENTE" data={sender.name} />
-        <CardInfo title="Destinatário" data={recipient.name} />
+        <CardInfo title="REMETENTE" data={data.sender.name} />
+        <CardInfo title="Destinatário" data={data.recipient.name} />
         <CardInfo title="Data" data={formattedDate} />
         <CardInfo title="Valor" data={formattedValue} />
 
-        <TypePix type={type}>{type === 1 ? "ENVIADO" : "RECEBIDO"}</TypePix>
+        <EditPix title="Editar" onClick={showSwal}>
+          {<Pencil size={32} />}
+        </EditPix>
       </ContentContainer>
     </DivContainer>
   );

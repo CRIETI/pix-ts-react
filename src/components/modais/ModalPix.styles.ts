@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const DivContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-
   form {
     width: 100%;
     height: 100%;

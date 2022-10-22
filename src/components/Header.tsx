@@ -33,9 +33,6 @@ export function Header() {
           <NavbarLink to="/pix">
             <List size={32} />
           </NavbarLink>
-          <NavbarLink to="/new-pix">
-            <Plus size={32} />
-          </NavbarLink>
         </NavLinkContainer>
         <div>
           <DarkModeContainer>

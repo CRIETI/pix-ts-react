@@ -66,3 +66,20 @@ export const TypePix = styled.strong<TypePixProps>`
           color: ${(props) => props.theme["red-500"]};
         `}
 `;
+
+export const EditPix = styled.button`
+  width: 3rem;
+  height: 3rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.white};
+`;
